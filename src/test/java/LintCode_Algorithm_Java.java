@@ -1074,6 +1074,84 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/jump-game/
+     * @param A: A list of integers
+     * @return: The boolean answer
+     */
+    public boolean canJump(int[] A) {
+        // wirte your code here
+        boolean[] can = new boolean[A.length];
+        can[0] = true;
+
+        for (int i = 1; i < A.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (can[j] && j + A[j] >= i) {
+                    can[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return can[A.length - 1];
+    }
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/jump-game-ii/
+     * @param A: A list of lists of integers
+     * @return: An integer
+     */
+    public int jump(int[] A) {
+        // write your code here
+        int[] steps = new int[A.length];
+
+        steps[0] = 0;
+        for (int i = 1; i < A.length; i++) {
+            steps[i] = Integer.MAX_VALUE;
+            for (int j = 0; j < i; j++) {
+                if (steps[j] != Integer.MAX_VALUE && j + A[j] >= i) {
+                    steps[i] = steps[j] + 1;
+                    break;
+                }
+            }
+        }
+
+        return steps[A.length - 1];
+    }
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/longest-increasing-subsequence/
+     * @param nums: The integer array
+     * @return: The length of LIS (longest increasing subsequence)
+     */
+    public int longestIncreasingSubsequence(int[] nums) {
+        // write your code here
+        int []f = new int[nums.length];
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            f[i] = 1;
+            for (int j = 0; j < i; j++) {
+                if (nums[j] <= nums[i]) {
+                    f[i] = f[i] > f[j] + 1 ? f[i] : f[j] + 1;
+                }
+            }
+            if (f[i] > max) {
+                max = f[i];
+            }
+        }
+        return max;
+    }
+
+
+
+
+
 
 
 
