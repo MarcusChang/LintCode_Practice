@@ -891,6 +891,11 @@ public class LintCode_Algorithm_Java {
     }
 
 
+
+     /*
+    * JiuZhang Chapter 4 begins !
+    * */
+
     /**
      * http://www.lintcode.com/zh-cn/problem/unique-paths-ii/
      * @param obstacleGrid: A list of lists of integers.
@@ -933,6 +938,136 @@ public class LintCode_Algorithm_Java {
         }
 
         return paths[n - 1][m - 1];
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/unique-paths/
+     * @param n, m: positive integer (1 <= n ,m <= 100)
+     * @return an integer
+     */
+    public int uniquePaths(int m, int n) {
+        // write your code here
+        if (m == 0 || n == 0) {
+            return 0;
+        }
+
+        int[][] sum = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            sum[i][0] = 1;
+        }
+        for (int i = 0; i < n; i++) {
+            sum[0][i] = 1;
+        }
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                sum[i][j] = sum[i - 1][j] + sum[i][j - 1];
+            }
+        }
+        return sum[m - 1][n - 1];
+    }
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/climbing-stairs/
+     * @param n: An integer
+     * @return: An integer
+     */
+    public int climbStairs(int n) {
+        // write your code here
+        if (n <= 1) {
+            return 1;
+        }
+        int last = 1, lastlast = 1;
+        int now = 0;
+        for (int i = 2; i <= n; i++) {
+            now = last + lastlast;
+            lastlast = last;
+            last = now;
+        }
+        return now;
+    }
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/minimum-path-sum/
+     * @param grid: a list of lists of integers.
+     * @return: An integer, minimizes the sum of all numbers along its path
+     */
+    public int minPathSum(int[][] grid) {
+        // write your code here
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+
+        int M = grid.length;
+        int N = grid[0].length;
+        int[][] sum = new int[M][N];
+
+        sum[0][0] = grid[0][0];
+
+        for (int i = 1; i < M; i++) {
+            sum[i][0] = sum[i - 1][0] + grid[i][0];
+        }
+
+        for (int i = 1; i < N; i++) {
+            sum[0][i] = sum[0][i - 1] + grid[0][i];
+        }
+
+        for (int i = 1; i < M; i++) {
+            for (int j = 1; j < N; j++) {
+                sum[i][j] = Math.min(sum[i - 1][j], sum[i][j - 1]) + grid[i][j];
+            }
+        }
+
+        return sum[M - 1][N - 1];
+    }
+
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/triangle/
+     * @param triangle: a list of lists of integers.
+     * @return: An integer, minimum path sum.
+     */
+    public int minimumTotal(int[][] triangle) {
+        // write your code here
+        if (triangle == null || triangle.length == 0) {
+            return -1;
+        }
+        if (triangle[0] == null || triangle[0].length == 0) {
+            return -1;
+        }
+
+        // state: f[x][y] = minimum path value from 0,0 to x,y
+        int n = triangle.length;
+        int[][] f = new int[n][n];
+
+        // initialize
+        f[0][0] = triangle[0][0];
+        for (int i = 1; i < n; i++) {
+            f[i][0] = f[i - 1][0] + triangle[i][0];
+            f[i][i] = f[i - 1][i - 1] + triangle[i][i];
+        }
+
+        // top down
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < i; j++) {
+                f[i][j] = Math.min(f[i - 1][j], f[i - 1][j - 1]) + triangle[i][j];
+            }
+        }
+
+        // answer
+        int best = f[n - 1][0];
+        for (int i = 1; i < n; i++) {
+            best = Math.min(best, f[n - 1][i]);
+        }
+        return best;
     }
 
 
