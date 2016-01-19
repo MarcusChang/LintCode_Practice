@@ -1219,6 +1219,100 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/longest-common-substring/#
+     * @param A, B: Two string.
+     * @return: the length of the longest common substring.
+     */
+    public int longestCommonSubstring(String A, String B) {
+        // write your code here
+        // write your code here
+        int maxlen = 0;
+        int xlen = A.length();
+        int ylen = B.length();
+        for(int i = 0; i < xlen; ++i)
+        {
+            for(int j = 0; j < ylen; ++j)
+            {
+                int len = 0;
+                while (i + len < xlen && j + len < ylen &&
+                        A.charAt(i + len) == B.charAt(j + len))
+                    len ++;
+                if(len > maxlen)
+                    maxlen = len;
+            }
+        }
+        return maxlen;
+    }
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/longest-common-subsequence/
+     * @param A, B: Two strings.
+     * @return: The length of longest common subsequence of A and B.
+     */
+    public int longestCommonSubsequence(String A, String B) {
+        // write your code here
+        int n = A.length();
+        int m = B.length();
+        int f[][] = new int[n + 1][m + 1];
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= m; j++){
+                f[i][j] = Math.max(f[i - 1][j], f[i][j - 1]);
+                if(A.charAt(i - 1) == B.charAt(j - 1))
+                    f[i][j] = f[i - 1][j - 1] + 1;
+            }
+        }
+        return f[n][m];
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/interleaving-string/
+     * Determine whether s3 is formed by interleaving of s1 and s2.
+     * @param s1, s2, s3: As description.
+     * @return: true or false.
+     */
+    public boolean isInterleave(String s1, String s2, String s3) {
+        // write your code here
+        if (s1.length() + s2.length() != s3.length()) {
+            return false;
+        }
+
+        boolean [][] interleaved = new boolean[s1.length() + 1][s2.length() + 1];
+        interleaved[0][0] = true;
+
+        for (int i = 1; i <= s1.length(); i++) {
+            if(s3.charAt(i - 1) == s1.charAt(i - 1) && interleaved[i - 1][0])
+                interleaved[i][0] = true;
+        }
+
+        for (int j = 1; j <= s2.length(); j++) {
+            if(s3.charAt(j - 1) == s2.charAt(j - 1) && interleaved[0][j - 1])
+                interleaved[0][j] = true;
+        }
+
+        for (int i = 1; i <= s1.length(); i++) {
+            for (int j = 1; j <= s2.length(); j++) {
+                if(((s3.charAt(i + j - 1) == s1.charAt(i - 1) && interleaved[i - 1][j]))
+                        || ((s3.charAt(i + j - 1)) == s2.charAt(j - 1) && interleaved[i][j - 1]))
+                    interleaved[i][j] = true;
+            }
+        }
+
+        return interleaved[s1.length()][s2.length()];
+    }
+
+
+
+     /*
+    * JiuZhang Chapter 6 begins !
+    * */
+
+
+
+
 
 
 
