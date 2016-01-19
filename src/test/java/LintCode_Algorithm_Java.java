@@ -1149,6 +1149,77 @@ public class LintCode_Algorithm_Java {
     }
 
 
+     /*
+    * JiuZhang Chapter 5 begins !
+    * */
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/edit-distance/
+     * @param word1 & word2: Two string.
+     * @return: The minimum number of steps.
+     */
+    public int minDistance(String word1, String word2) {
+        // write your code here
+        int n = word1.length();
+        int m = word2.length();
+
+        int[][] dp = new int[n+1][m+1];
+        for(int i=0; i< m+1; i++){
+            dp[0][i] = i;
+        }
+        for(int i=0; i<n+1; i++){
+            dp[i][0] = i;
+        }
+
+
+        for(int i = 1; i<n+1; i++){
+            for(int j=1; j<m+1; j++){
+                if(word1.charAt(i-1) == word2.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1];
+                }else{
+                    dp[i][j] = 1 + Math.min(dp[i-1][j-1],Math.min(dp[i-1][j],dp[i][j-1]));
+                }
+            }
+        }
+        return dp[n][m];
+    }
+
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/distinct-subsequences/
+     * @param S, T: Two string.
+     * @return: Count the number of distinct subsequences
+     */
+    public int numDistinct(String S, String T) {
+        // write your code here
+        if (S == null || T == null) {
+            return 0;
+        }
+
+        int[][] nums = new int[S.length() + 1][T.length() + 1];
+
+        for (int i = 0; i < S.length(); i++) {
+            nums[i][0] = 1;
+        }
+        for (int i = 1; i <= S.length(); i++) {
+            for (int j = 1; j <= T.length(); j++) {
+                nums[i][j] = nums[i - 1][j];
+                if (S.charAt(i - 1) == T.charAt(j - 1)) {
+                    nums[i][j] += nums[i - 1][j - 1];
+                }
+            }
+        }
+        return nums[S.length()][T.length()];
+    }
+
+
+
+
+
 
 
 
