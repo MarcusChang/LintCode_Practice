@@ -1376,6 +1376,193 @@ public class LintCode_Algorithm_Java {
     }
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/remove-duplicates-from-sorted-list-ii/
+     * @param ListNode head is the head of the linked list
+     * @return: ListNode head of the linked list
+     */
+    public static ListNode deleteDuplicates(ListNode head) {
+        // write your code here
+        if(head == null || head.next == null)
+            return head;
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        head = dummy;
+
+        while (head.next != null && head.next.next != null) {
+            if (head.next.val == head.next.next.val) {
+                int val = head.next.val;
+                while (head.next != null && head.next.val == val) {
+                    head.next = head.next.next;
+                }
+            } else {
+                head = head.next;
+            }
+        }
+
+        return dummy.next;
+    }
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/copy-list-with-random-pointer/
+     * @param head: The head of linked list with a random pointer.
+     * @return: A new head of a deep copy of the list.
+     */
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if (head == null) {
+            return null;
+        }
+
+        HashMap<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();
+        RandomListNode dummy = new RandomListNode(0);
+        RandomListNode pre = dummy, newNode;
+        while (head != null) {
+            if (map.containsKey(head)) {
+                newNode = map.get(head);
+            } else {
+                newNode = new RandomListNode(head.label);
+                map.put(head, newNode);
+            }
+            pre.next = newNode;
+
+            if (head.random != null) {
+                if (map.containsKey(head.random)) {
+                    newNode.random = map.get(head.random);
+                } else {
+                    newNode.random = new RandomListNode(head.random.label);
+                    map.put(head.random, newNode.random);
+                }
+            }
+
+            pre = newNode;
+            head = head.next;
+        }
+
+        return dummy.next;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/merge-k-sorted-lists/
+     * @param lists: a list of ListNode
+     * @return: The head of one sorted list.
+     */
+    public ListNode mergeKLists(List<ListNode> lists) {
+        if (lists.size() == 0) {
+            return null;
+        }
+        return mergeHelper(lists, 0, lists.size() - 1);
+    }
+
+    private ListNode mergeHelper(List<ListNode> lists, int start, int end) {
+        if (start == end) {
+            return lists.get(start);
+        }
+
+        int mid = start + (end - start) / 2;
+        ListNode left = mergeHelper(lists, start, mid);
+        ListNode right = mergeHelper(lists, mid + 1, end);
+        return mergeTwoLists(left, right);
+    }
+
+    private ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                tail.next = list1;
+                tail = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                tail = list2;
+                list2 = list2.next;
+            }
+        }
+        if (list1 != null) {
+            tail.next = list1;
+        } else {
+            tail.next = list2;
+        }
+
+        return dummy.next;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/reverse-linked-list-ii/
+     * @param ListNode head is the head of the linked list
+     * @oaram m and n
+     * @return: The head of the reversed ListNode
+     */
+    public ListNode reverseBetween(ListNode head, int m , int n) {
+        // write your code
+        if (m >= n || head == null) {
+            return head;
+        }
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        head = dummy;
+
+        for (int i = 1; i < m; i++) {
+            if (head == null) {
+                return null;
+            }
+            head = head.next;
+        }
+
+        ListNode premNode = head;
+        ListNode mNode = head.next;
+        ListNode nNode = mNode, postnNode = mNode.next;
+        for (int i = m; i < n; i++) {
+            if (postnNode == null) {
+                return null;
+            }
+            ListNode temp = postnNode.next;
+            postnNode.next = nNode;
+            nNode = postnNode;
+            postnNode = temp;
+        }
+        mNode.next = postnNode;
+        premNode.next = nNode;
+
+        return dummy.next;
+    }
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/linked-list-cycle-ii/
+     * @param head: The first node of linked list.
+     * @return: The node where the cycle begins.
+     *           if there is no cycle, return null
+     */
+    public ListNode detectCycle(ListNode head) {
+        // write your code here
+        if (head == null || head.next==null) {
+            return null;
+        }
+
+        ListNode fast, slow;
+        fast = head.next;
+        slow = head;
+        while (fast != slow) {
+            if(fast==null || fast.next==null)
+                return null;
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        while (head != slow.next) {
+            head = head.next;
+            slow = slow.next;
+        }
+        return head;
+    }
 
 
 
