@@ -1311,6 +1311,73 @@ public class LintCode_Algorithm_Java {
     * */
 
 
+    /**
+     * @param head: The first node of linked list.
+     * @param n: An integer.
+     * @return: The head of linked list.
+     */
+    ListNode removeNthFromEnd(ListNode head, int n) {
+        // write your code here
+        if (n <= 0) {
+            return null;
+        }
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        ListNode preDelete = dummy;
+        for (int i = 0; i < n; i++) {
+            if (head == null) {
+                return null;
+            }
+            head = head.next;
+        }
+        while (head != null) {
+            head = head.next;
+            preDelete = preDelete.next;
+        }
+        preDelete.next = preDelete.next.next;
+        return dummy.next;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/partition-list/
+     * @param head: The first node of linked list.
+     * @param x: an integer
+     * @return: a ListNode
+     */
+    public ListNode partition(ListNode head, int x) {
+        // write your code here
+
+        if (head == null) {
+            return null;
+        }
+
+        ListNode leftDummy = new ListNode(0);
+        ListNode rightDummy = new ListNode(0);
+        ListNode left = leftDummy, right = rightDummy;
+
+        while (head != null) {
+            if (head.val < x) {
+                left.next = head;
+                left = head;
+            } else {
+                right.next = head;
+                right = head;
+            }
+            head = head.next;
+        }
+
+        right.next = null;
+        left.next = rightDummy.next;
+        return leftDummy.next;
+
+    }
+
+
+
+
 
 
 
