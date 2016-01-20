@@ -1378,7 +1378,7 @@ public class LintCode_Algorithm_Java {
 
     /**
      * http://www.lintcode.com/zh-cn/problem/remove-duplicates-from-sorted-list-ii/
-     * @param ListNode head is the head of the linked list
+     * @param head head is the head of the linked list
      * @return: ListNode head of the linked list
      */
     public static ListNode deleteDuplicates(ListNode head) {
@@ -1494,7 +1494,7 @@ public class LintCode_Algorithm_Java {
 
     /**
      * http://www.lintcode.com/zh-cn/problem/reverse-linked-list-ii/
-     * @param ListNode head is the head of the linked list
+     * @param head head is the head of the linked list
      * @oaram m and n
      * @return: The head of the reversed ListNode
      */
