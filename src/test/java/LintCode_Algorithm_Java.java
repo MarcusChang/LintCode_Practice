@@ -1940,6 +1940,13 @@ public class LintCode_Algorithm_Java {
 
 
 
+     /*
+    * JiuZhang Chapter 8 begins !
+    * */
+
+
+
+
 
 
 
