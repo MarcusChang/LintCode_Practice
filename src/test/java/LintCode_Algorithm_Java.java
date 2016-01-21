@@ -1757,7 +1757,7 @@ public class LintCode_Algorithm_Java {
 
     /**
      * http://www.lintcode.com/zh-cn/problem/3sum-closest/
-     * @param numbers: Give an array numbers of n integer
+     * @param num: Give an array numbers of n integer
      * @param target : An integer
      * @return : return the sum of the three integers, the sum closest target.
      */
