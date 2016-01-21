@@ -1566,6 +1566,377 @@ public class LintCode_Algorithm_Java {
 
 
 
+     /*
+    * JiuZhang Chapter 7 begins !
+    * */
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/subarray-sum/
+     * @param nums: A list of integers
+     * @return: A list of integers includes the index of the first number
+     *          and the index of the last number
+     */
+    public ArrayList<Integer> subarraySum(int[] nums) {
+        // write your code here
+
+        int len = nums.length;
+
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        map.put(0, -1);
+
+        int sum = 0;
+        for (int i = 0; i < len; i++) {
+            sum += nums[i];
+
+            if (map.containsKey(sum)) {
+                ans.add(map.get(sum) + 1);
+                ans.add(i);
+                return ans;
+            }
+
+            map.put(sum, i);
+        }
+
+        return ans;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/merge-sorted-array/
+     * @param A: sorted integer array A which has m elements,
+     *           but size of A is m+n
+     * @param B: sorted integer array B which has n elements
+     * @return: void
+     */
+    public void mergeSortedArray(int[] A, int m, int[] B, int n) {
+        // write your code here
+        int i = m-1, j = n-1, index = m + n - 1;
+        while (i >= 0 && j >= 0) {
+            if (A[i] > B[j]) {
+                A[index--] = A[i--];
+            } else {
+                A[index--] = B[j--];
+            }
+        }
+        while (i >= 0) {
+            A[index--] = A[i--];
+        }
+        while (j >= 0) {
+            A[index--] = B[j--];
+        }
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/maximum-subarray/
+     * @param nums: A list of integers
+     * @return: A integer indicate the sum of max subarray
+     */
+    public int maxSubArray(int[] nums) {
+        // write your code
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int max = Integer.MIN_VALUE, sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            max = Math.max(max, sum);
+            sum = Math.max(sum, 0);
+        }
+
+        return max;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/sort-colors/
+     * @param a: A list of integer which is 0, 1 or 2
+     * @return: nothing
+     */
+    public void sortColors(int[] a) {
+        // write your code here
+        if(a == null || a.length <= 1)
+            return;
+
+        int pl = 0;
+        int pr = a.length - 1;
+        int i = 0;
+        while(i <= pr){
+            if(a[i] == 0){
+                swap(a, pl, i);
+                pl++;
+                i++;
+            }else if(a[i] == 1){
+                i++;
+            }else{
+                swap(a, pr, i);
+                pr--;
+            }
+        }
+    }
+
+    private void swap(int[] a, int i, int j){
+        int tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+
+
+
+
+
+
+    /**
+     *http://www.lintcode.com/zh-cn/problem/subarray-sum-closest/
+     * @param nums: A list of integers
+     * @return: A list of integers includes the index of the first number
+     *          and the index of the last number
+     */
+    public int[] subarraySumClosest(int[] nums) {
+        // write your code here
+        ArrayList<Integer> res = new ArrayList<Integer> ();
+        if (nums == null || nums.length == 0) {
+            return arraylistToArray(res);
+        }
+
+        int len = nums.length;
+        if(len == 1) {
+            res.add(0);
+            res.add(0);
+            return arraylistToArray(res);
+        }
+        Pair[] sums = new Pair[len+1];
+        int prev = 0;
+        sums[0] = new Pair(0, 0);
+        for (int i = 1; i <= len; i++) {
+            sums[i] = new Pair(prev + nums[i-1], i);
+            prev = sums[i].sum;
+        }
+        Arrays.sort(sums, new Comparator<Pair>() {
+            public int compare(Pair a, Pair b) {
+                return a.sum - b.sum;
+            }
+        });
+        int ans = Integer.MAX_VALUE;
+        for (int i = 1; i <= len; i++) {
+
+            if (ans > sums[i].sum - sums[i-1].sum) {
+                ans = sums[i].sum - sums[i-1].sum;
+                res.clear();
+                int[] temp = new int[]{sums[i].index - 1, sums[i - 1].index - 1};
+                Arrays.sort(temp);
+                res.add(temp[0] + 1);
+                res.add(temp[1]);
+            }
+        }
+
+        return arraylistToArray(res);
+    }
+
+    class Pair {
+        int sum;
+        int index;
+        public Pair(int s, int i) {
+            sum = s;
+            index = i;
+        }
+    }
+
+    public int[] arraylistToArray (ArrayList<Integer> arrayList) {
+        int ret[]=new int[arrayList.size()];
+        for(int i=0;i<arrayList.size();i++) {
+            ret[i]=((Integer)arrayList.get(i)).intValue();
+        }
+        return ret;
+    }
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/3sum-closest/
+     * @param numbers: Give an array numbers of n integer
+     * @param target : An integer
+     * @return : return the sum of the three integers, the sum closest target.
+     */
+    public int threeSumClosest(int[] num ,int target) {
+        // write your code here
+        // Note: The Solution object is instantiated only once and is reused by
+        // each test case.
+        if (num == null || num.length < 3) {
+            return Integer.MAX_VALUE;
+        }
+        Arrays.sort(num);
+        int closet = Integer.MAX_VALUE / 2; // otherwise it will overflow for opeartion (closet-target)'
+        for (int i = 0; i < num.length - 2; i++) {
+            int left = i + 1;
+            int right = num.length - 1;
+            while (left < right) {
+                int sum = num[i] + num[left] + num[right];
+                if (sum == target) {
+                    return sum;
+                } else if (sum < target) {
+                    left++;
+                } else {
+                    right--;
+                }
+                closet = Math.abs(sum - target) < Math.abs(closet - target) ? sum : closet;
+            }
+        }
+        return closet;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/two-sum/
+     * @param numbers : An array of Integer
+     * @param target : target = numbers[index1] + numbers[index2]
+     * @return : [index1 + 1, index2 + 1] (index1 < index2)
+     */
+    public int[] twoSum(int[] numbers, int target) {
+        // write your code here
+        if(numbers == null || numbers.length < 2) {
+            return null;
+        }
+        HashMap<Integer, Integer> hs = new HashMap<Integer, Integer>();
+        for(int i=0; i<numbers.length; i++){
+            hs.put(numbers[i], i+1);
+        }
+
+        int[] a = new int[2];
+
+        for(int i=0; i<numbers.length ; i++){
+            if ( hs.containsKey( target - numbers[i] )){
+                int index1 = i+1;
+                int index2 = hs.get(target - numbers[i]);
+                if (index1 == index2){
+                    continue;
+                }
+                a[0] = index1;
+                a[1] = index2;
+                return a;
+            }
+        }
+        return a;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/maximum-subarray-ii/
+     * @param nums: A list of integers
+     * @return: An integer denotes the sum of max two non-overlapping subarrays
+     */
+    public int maxTwoSubArrays(ArrayList<Integer> nums) {
+        // write your code
+        int size = nums.size();
+        int[] left = new int[size];
+        int[] right = new int[size];
+        int sum = 0;
+        int minSum = 0;
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < size; i++){
+            sum += nums.get(i);
+            max = Math.max(max, sum - minSum);
+            minSum = Math.min(sum, minSum);
+            left[i] = max;
+        }
+        sum = 0;
+        minSum = 0;
+        max = Integer.MIN_VALUE;
+        for(int i = size - 1; i >= 0; i--){
+            sum += nums.get(i);
+            max = Math.max(max, sum - minSum);
+            minSum = Math.min(sum, minSum);
+            right[i] = max;
+        }
+        max = Integer.MIN_VALUE;
+        for(int i = 0; i < size - 1; i++){
+            max = Math.max(max, left[i] + right[i + 1]);
+        }
+        return max;
+    }
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/partition-array/
+     *@param nums: The integer array you should partition
+     *@param k: As description
+     *return: The index after partition
+     */
+    public int partitionArray(int[] nums, int k) {
+        //write your code here
+        int i = 0, j = nums.length - 1;
+        while (i <= j) {
+            while (i <= j && nums[i] < k) {
+                i++;
+            }
+
+            while (i <= j && nums[j] >= k) {
+                j--;
+            }
+
+            if (i <= j) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        return i;
+    }
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/median-of-two-sorted-arrays/
+     * @param A: An integer array.
+     * @param B: An integer array.
+     * @return: a double whose format is *.5 or *.0
+     */
+    public double findMedianSortedArrays(int[] A, int[] B) {
+        // write your code here
+        int len = A.length + B.length;
+        if (len % 2 == 1) {
+            return findKth(A, 0, B, 0, len / 2 + 1);
+        }
+        return (
+                findKth(A, 0, B, 0, len / 2) + findKth(A, 0, B, 0, len / 2 + 1)
+        ) / 2.0;
+    }
+
+    // find kth number of two sorted array
+    public static int findKth(int[] A, int A_start,
+                              int[] B, int B_start,
+                              int k){
+        if (A_start >= A.length) {
+            return B[B_start + k - 1];
+        }
+        if (B_start >= B.length) {
+            return A[A_start + k - 1];
+        }
+
+        if (k == 1) {
+            return Math.min(A[A_start], B[B_start]);
+        }
+
+        int A_key = A_start + k / 2 - 1 < A.length
+                ? A[A_start + k / 2 - 1]
+                : Integer.MAX_VALUE;
+        int B_key = B_start + k / 2 - 1 < B.length
+                ? B[B_start + k / 2 - 1]
+                : Integer.MAX_VALUE;
+
+        if (A_key < B_key) {
+            return findKth(A, A_start + k / 2, B, B_start, k - k / 2);
+        } else {
+            return findKth(A, A_start, B, B_start + k / 2, k - k / 2);
+        }
+    }
 
 
 
