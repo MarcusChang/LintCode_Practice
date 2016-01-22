@@ -1945,6 +1945,115 @@ public class LintCode_Algorithm_Java {
     * */
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/rehashing/
+     * @param hashTable: A list of The first node of linked list
+     * @return: A list of The first node of linked list which have twice size
+     */
+    public ListNode[] rehashing(ListNode[] hashTable) {
+        // write your code here
+        if (hashTable.length <= 0) {
+            return hashTable;
+        }
+        int newcapacity = 2 * hashTable.length;
+        ListNode[] newTable = new ListNode[newcapacity];
+        for (int i = 0; i < hashTable.length; i++) {
+            while (hashTable[i] != null) {
+                int newindex
+                        = (hashTable[i].val % newcapacity + newcapacity) % newcapacity;
+                if (newTable[newindex] == null) {
+                    newTable[newindex] = new ListNode(hashTable[i].val);
+                    // newTable[newindex].next = null;
+                } else {
+                    ListNode dummy = newTable[newindex];
+                    while (dummy.next != null) {
+                        dummy = dummy.next;
+                    }
+                    dummy.next = new ListNode(hashTable[i].val);
+                }
+                hashTable[i] = hashTable[i].next;
+            }
+        }
+        return newTable;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/longest-consecutive-sequence/
+     * @param num: A list of integers
+     * @return an integer
+     */
+    public int longestConsecutive(int[] num) {
+        // write you code here
+        HashMap<Integer, Integer> hs = new HashMap<Integer, Integer>();
+        for(int i: num){
+            hs.put(i, 0);
+        }
+        int maxl = 1;
+        for(int i: num){
+            if (hs.get(i) == 1) continue;
+
+            int tmp = i;
+            int current_max = 1;
+            while(hs.containsKey(tmp+1)){
+                current_max ++;
+                tmp ++;
+                hs.put(tmp, 1);
+            }
+
+            tmp = i;
+            while(hs.containsKey(tmp-1)){
+                current_max ++;
+                tmp --;
+                hs.put(tmp, 1);
+            }
+
+            maxl = Math.max(current_max, maxl);
+        }
+
+        return maxl;
+    }
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/ugly-number/
+     * @param k: The number n.
+     * @return: The kth prime number as description.
+     */
+    public long kthPrimeNumber(int k) {
+        // write your code here
+        Queue<Long> Q = new PriorityQueue<Long>();
+        HashMap<Long, Boolean> inQ = new HashMap<Long, Boolean>();
+        Long[] primes = new Long[3];
+        primes[0] = Long.valueOf(3);
+        primes[1] = Long.valueOf(5);
+        primes[2] = Long.valueOf(7);
+        for (int i = 0; i < 3; i++) {
+            Q.add(primes[i]);
+            inQ.put(primes[i], true);
+        }
+        Long number = Long.valueOf(0);
+        for (int i = 0; i < k; i++) {
+            number = Q.poll();
+            for (int j = 0; j < 3; j++) {
+                if (!inQ.containsKey(primes[j] * number)) {
+                    Q.add(number * primes[j]);
+                    inQ.put(number * primes[j], true);
+                }
+            }
+        }
+        return number;
+    }
+
+
+
+
+
+
+
+
 
 
 
