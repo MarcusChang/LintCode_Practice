@@ -28,6 +28,9 @@ public class LintCode_Algorithm_Java {
         return results;
     }
 
+    /*
+    * JiuZhang Chapter 1 begins !
+    * */
 
 
     /**
@@ -234,6 +237,9 @@ public class LintCode_Algorithm_Java {
     }
 
 
+    /*
+    * JiuZhang Chapter 2 begins !
+    * */
 
 
     /**
