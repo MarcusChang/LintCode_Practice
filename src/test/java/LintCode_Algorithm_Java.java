@@ -659,11 +659,20 @@ public class LintCode_Algorithm_Java {
 
 
 
-
-
-
-
-
+    /**
+     * http://www.jiuzhang.com/solutions/find-minimum-in-rotated-sorted-array-ii/
+     * @param num: a rotated sorted array
+     * @return: the minimum number in the array
+     */
+    public int findMinRotatedArray2(int[] num) {
+        // write your code here
+        int min = num[0];
+        for (int i = 1; i < num.length; i++) {
+            if (num[i] < min)
+                min = num[i];
+        }
+        return min;
+    }
 
 
 
