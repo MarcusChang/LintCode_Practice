@@ -675,6 +675,21 @@ public class LintCode_Algorithm_Java {
     }
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/search-in-rotated-sorted-array-ii/
+     * param A : an integer ratated sorted array and duplicates are allowed
+     * param target :  an integer to be search
+     * return : a boolean
+     */
+    public boolean searchInRotatedArray2(int[] A, int target) {
+        // write your code here
+        for (int i = 0; i < A.length; i ++) {
+            if (A[i] == target) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     /*
