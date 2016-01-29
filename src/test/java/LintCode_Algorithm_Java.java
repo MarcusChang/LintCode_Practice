@@ -1091,6 +1091,37 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/tweaked-identical-binary-tree/
+     * @param a, b, the root of binary trees.
+     * @return true if they are tweaked identical, or false.
+     */
+    public boolean isTweakedIdentical(TreeNode a, TreeNode b) {
+        // Write your code here
+        if (a == null && b == null) {
+            return true;
+        }
+        if (a == null || b == null) {
+            return false;
+        }
+        if (a.val != b.val) {
+            return false;
+        }
+
+        if (isTweakedIdentical(a.left, b.left) && isTweakedIdentical(a.right, b.right)) {
+            return true;
+        }
+
+        if (isTweakedIdentical(a.left, b.right) && isTweakedIdentical(a.right, b.left)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
 
      /*
     * JiuZhang Chapter 4 begins !
