@@ -1178,6 +1178,33 @@ public class LintCode_Algorithm_Java {
 
 
 
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/binary-tree-postorder-traversal/
+     * @param root: The root of binary tree.
+     * @return: Postorder in ArrayList which contains node values.
+     * recursive
+     */
+    public ArrayList<Integer> postorderTraversal(TreeNode root) {
+        // write your code here
+        ArrayList<Integer> result = new ArrayList<Integer>();
+
+        if (root == null) {
+            return result;
+        }
+
+        result.addAll(postorderTraversal(root.left));
+        result.addAll(postorderTraversal(root.right));
+        result.add(root.val);
+
+        return result;
+    }
+
+
+
+
+
+
      /*
     * JiuZhang Chapter 4 begins !
     * */
