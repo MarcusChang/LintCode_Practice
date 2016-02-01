@@ -1268,6 +1268,44 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/construct-binary-tree-from-inorder-and-postorder-traversal/
+     *@param inorder : A list of integers that inorder traversal of a tree
+     *@param postorder : A list of integers that postorder traversal of a tree
+     *@return : Root of a tree
+     */
+    public TreeNode buildTree_inorder_postorder(int[] inorder, int[] postorder) {
+        // write your code here
+        if (inorder.length != postorder.length) {
+            return null;
+        }
+        return myBuildTree_inorder_postorder(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1);
+    }
+
+    private int findPosition_inorder_postorder(int[] arr, int start, int end, int key) {
+        int i;
+        for (i = start; i <= end; i++) {
+            if (arr[i] == key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private TreeNode myBuildTree_inorder_postorder(int[] inorder, int instart, int inend, int[] postorder, int poststart, int postend) {
+        if (instart > inend) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(postorder[postend]);
+        int position = findPosition_inorder_postorder(inorder, instart, inend, postorder[postend]);
+
+        root.left = myBuildTree_inorder_postorder(inorder, instart, position - 1,
+                postorder, poststart, poststart + position - instart - 1);
+        root.right = myBuildTree_inorder_postorder(inorder, position + 1, inend,
+                postorder, poststart + position - instart, postend - 1);
+        return root;
+    }
 
 
 
