@@ -1416,6 +1416,43 @@ public class LintCode_Algorithm_Java {
 
 
 
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/search-range-in-binary-search-tree/
+     * @param root: The root of the binary search tree.
+     * @param k1 and k2: range k1 to k2.
+     * @return: Return all keys that k1<=key<=k2 in ascending order.
+     */
+    public ArrayList<Integer> searchRange(TreeNode root, int k1, int k2) {
+        // write your code here
+        ArrayList<Integer> results = new ArrayList<Integer>();
+        helper(root, k1, k2, results);
+        return results;
+    }
+
+    private void helper(TreeNode root, int k1, int k2, ArrayList<Integer> results) {
+        if (root == null) {
+            return;
+        }
+        if (root.val > k1) {
+            helper(root.left, k1, k2, results);
+        }
+        if (root.val >= k1 && root.val <= k2) {
+            results.add(root.val);
+        }
+        if (root.val < k2) {
+            helper(root.right, k1, k2, results);
+        }
+    }
+
+
+
+
+
+
+
+
+
      /*
     * JiuZhang Chapter 4 begins !
     * */
