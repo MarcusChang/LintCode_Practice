@@ -2428,6 +2428,32 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/remove-duplicates-from-unsorted-list/
+     * @param head: The first node of linked list.
+     * @return: head node
+     */
+    public ListNode removeDuplicates(ListNode head) {
+        // Write your code here
+        HashSet<Integer> hash = new HashSet<Integer>();
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        head = dummy;
+        while (head.next != null) {
+            if (hash.contains(head.next.val)) {
+                head.next = head.next.next;
+            } else {
+                hash.add(head.next.val);
+                head = head.next;
+            }
+        }
+
+        return dummy.next;
+    }
+
+
+
      /*
     * JiuZhang Chapter 7 begins !
     * */
