@@ -2483,6 +2483,33 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/insertion-sort-list/
+     * @param head: The first node of linked list.
+     * @return: The head of linked list.
+     */
+    public ListNode insertionSortList(ListNode head) {
+        // write your code here
+        ListNode dummy = new ListNode(0);
+
+        while (head != null) {
+            ListNode node = dummy;
+            while (node.next != null && node.next.val < head.val) {
+                node = node.next;
+            }
+            ListNode temp = head.next;
+            head.next = node.next;
+            node.next = head;
+            head = temp;
+        }
+
+        return dummy.next;
+    }
+
+
+
+
+
      /*
     * JiuZhang Chapter 7 begins !
     * */
