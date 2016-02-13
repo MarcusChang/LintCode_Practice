@@ -2567,6 +2567,24 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/reverse-linked-list/
+     * @param head: The head of linked list.
+     * @return: The new head of reversed linked list.
+     */
+    public ListNode reverseLinkedList(ListNode head) {
+        // write your code here
+        ListNode prev = null;
+        while (head != null) {
+            ListNode temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = temp;
+        }
+        return prev;
+    }
+
+
 
 
      /*
