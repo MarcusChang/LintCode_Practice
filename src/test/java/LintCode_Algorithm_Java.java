@@ -2832,7 +2832,6 @@ public class LintCode_Algorithm_Java {
 
 
 
-
      /*
     * JiuZhang Chapter 7 begins !
     * */
@@ -3204,6 +3203,35 @@ public class LintCode_Algorithm_Java {
             return findKth(A, A_start, B, B_start + k / 2, k - k / 2);
         }
     }
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/sqrtx/
+     * @param x: An integer
+     * @return: The sqrt of x
+     */
+    public int sqrt(int x) {
+        // write your code here
+        // find the last number which square of it <= x
+        long start = 1, end = x;
+        while (start + 1 < end) {
+            long mid = start + (end - start) / 2;
+            if (mid * mid <= x) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+
+        if (end * end <= x) {
+            return (int) end;
+        }
+        return (int) start;
+    }
+
+
+
 
 
 
