@@ -3252,6 +3252,29 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/majority-number/
+     * @param nums: a list of integers
+     * @return: find a  majority number
+     */
+    public int majorityNumber(ArrayList<Integer> nums) {
+        // write your code
+        int count = 0, candidate = -1;
+        for (int i = 0; i < nums.size(); i++) {
+            if (count == 0) {
+                candidate = nums.get(i);
+                count = 1;
+            } else if (candidate == nums.get(i)) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return candidate;
+    }
+
+
+
 
 
      /*
