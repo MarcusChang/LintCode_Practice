@@ -3356,7 +3356,7 @@ public class LintCode_Algorithm_Java {
      * @param prices: Given an integer array
      * @return: Maximum profit
      */
-    public int maxProfit(int[] prices) {
+    public int maxProfit_3(int[] prices) {
         // write your code here
         if (prices == null || prices.length <= 1) {
             return 0;
@@ -3386,6 +3386,24 @@ public class LintCode_Algorithm_Java {
             profit = Math.max(left[i] + right[i], profit);
         }
 
+        return profit;
+    }
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/best-time-to-buy-and-sell-stock-ii/
+     * @param prices: Given an integer array
+     * @return: Maximum profit
+     */
+    public int maxProfit_2(int[] prices) {
+        // write your code here
+        int profit = 0;
+        for (int i = 0; i < prices.length - 1; i++) {
+            int diff = prices[i+1] - prices[i];
+            if (diff > 0) {
+                profit += diff;
+            }
+        }
         return profit;
     }
 
