@@ -3596,7 +3596,7 @@ public class LintCode_Algorithm_Java {
 
     /**
      * http://www.lintcode.com/zh-cn/problem/3sum/
-     * @param numbers : Give an array numbers of n integer
+     * @param num : Give an array numbers of n integer
      * @return : Find all unique triplets in the array which gives the sum of zero.
      */
     public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
