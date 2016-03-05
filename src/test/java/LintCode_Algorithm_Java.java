@@ -3642,6 +3642,29 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/sort-letters-by-case/
+     *@param chars: The letter array you should sort by Case
+     *@return: void
+     */
+    public void sortLettersByCase(char[] chars) {
+        //write your code here
+        int i = 0, j = chars.length - 1;
+        char tmp ;
+        while ( i <= j) {
+            while (i <= j && Character.isLowerCase(chars[i]) ) i++;
+            while (i <= j && Character.isUpperCase(chars[j]) ) j--;
+            if (i <= j) {
+                tmp = chars[i];
+                chars[i] = chars[j];
+                chars[j] = tmp;
+                i++; j--;
+            }
+        }
+        return ;
+    }
+
+
 
 
 
