@@ -4071,6 +4071,28 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/hash-function/
+     * @param key: A String you should hash
+     * @param HASH_SIZE: An integer
+     * @return an integer
+     */
+    public int hashCode(char[] key,int HASH_SIZE) {
+        // write your code here
+        long ans = 0;
+        for(int i = 0; i < key.length;i++) {
+            ans = (ans * 33 + (int)(key[i])) % HASH_SIZE;
+            ans %= HASH_SIZE;
+        }
+        return (int)ans;
+    }
+
+
+
+
+
+
+
     /*
     * JiuZhang Chapter 9 begins !
     * */
