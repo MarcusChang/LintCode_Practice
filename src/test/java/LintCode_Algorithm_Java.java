@@ -4091,6 +4091,40 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/stack-sorting/
+     * @param stack an integer stack
+     * @return void
+     */
+    public void stackSorting(Stack<Integer> stack) {
+        // Write your code here
+        Stack<Integer> tmp = new Stack<Integer>();
+        while (!stack.isEmpty()) {
+            if (!stack.isEmpty() && (tmp.isEmpty() || tmp.peek() >= stack.peek())) {
+                tmp.push(stack.peek());
+                stack.pop();
+            }
+            else {
+                int value = stack.peek(); stack.pop();
+                while (!tmp.isEmpty() && tmp.peek() <= value)  {
+                    stack.push(tmp.peek());
+                    tmp.pop();
+                }
+                stack.push(value);
+                while (!tmp.isEmpty()) {
+                    stack.push(tmp.peek());
+                    tmp.pop();
+                }
+            }
+        }
+        while (!tmp.isEmpty()) {
+            stack.push(tmp.peek());
+            tmp.pop();
+        }
+    }
+
+
+
 
 
     /*
