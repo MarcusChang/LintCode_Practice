@@ -4130,6 +4130,7 @@ public class LintCode_Algorithm_Java {
      * http://www.lintcode.com/zh-cn/problem/heapify/
      * @param A: Given an integer array
      * @return: void
+     * this cost O(n)
      */
 
     private void siftdown(int[] A, int k) {
@@ -4160,6 +4161,32 @@ public class LintCode_Algorithm_Java {
     }
 
 
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/heapify/
+     * @param A: Given an integer array
+     * @return: void
+     * Version 2: This cost O(nlogn)
+     */
+    private void siftup(int[] A, int k) {
+        while (k != 0) {
+            int father = (k - 1) / 2;
+            if (A[k] > A[father]) {
+                break;
+            }
+            int temp = A[k];
+            A[k] = A[father];
+            A[father] = temp;
+
+            k = father;
+        }
+    }
+
+    public void heapifyII(int[] A) {
+        for (int i = 0; i < A.length; i++) {
+            siftup(A, i);
+        }
+    }
 
 
 
