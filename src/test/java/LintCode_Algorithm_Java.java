@@ -2201,7 +2201,25 @@ public class LintCode_Algorithm_Java {
 
 
 
-
+    /**
+     * http://www.jiuzhang.com/solutions/backpack-ii/
+     * @param m: An integer m denotes the size of a backpack
+     * @param A & V: Given n items with size A[i] and value V[i]
+     * @return: The maximum value
+     */
+    public int backPackII(int m, int[] A, int V[]) {
+        // write your code here
+        int[] f = new int[m+1];
+        for (int i = 0; i <=m ; ++i) f[i] = 0;
+        int n = A.length , i, j;
+        for(i = 0; i < n; i++){
+            for(j = m; j >= A[i]; j--){
+                if (f[j] < f[j - A[i]] + V[i])
+                    f[j] = f[j - A[i]] + V[i];
+            }
+        }
+        return f[m];
+    }
 
 
 
