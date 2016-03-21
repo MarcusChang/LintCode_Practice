@@ -2914,6 +2914,31 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.jiuzhang.com/solutions/middle-of-linked-list/
+     * @param head: the head of linked list.
+     * @return: a middle node of the linked list
+     */
+    public ListNode middleNode(ListNode head) {
+        // Write your code here
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode slow = head, fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+
+
+
+
+
 
      /*
     * JiuZhang Chapter 7 begins !
