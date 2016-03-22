@@ -2939,6 +2939,26 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/delete-node-in-the-middle-of-singly-linked-list/
+     * @param node: the node in the list should be deleted
+     * @return: nothing
+     */
+    public void deleteNodeInO1(ListNode node) {
+        // write your code here
+        if (node == null || node.next == null)
+            return;
+        ListNode next = node.next;
+        node.val = next.val;
+        node.next = next.next;
+        return;
+    }
+
+
+
+
+
+
 
      /*
     * JiuZhang Chapter 7 begins !
