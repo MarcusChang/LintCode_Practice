@@ -4126,6 +4126,35 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/merge-sorted-array-ii/
+     * @param A: sorted integer array A which has m elements,
+     *           but size of A is m+n
+     * @param B: sorted integer array B which has n elements
+     * @return: void
+     */
+    public void mergeSortedArrayII(int[] A, int m, int[] B, int n) {
+        int i = m - 1, j = n - 1;
+        int index = n + m - 1;
+        while (i >= 0 && j >= 0) {
+            if (A[i] > B[j]) {
+                A[index--] = A[i--];
+            } else {
+                A[index--] = B[j--];
+            }
+        }
+        while (i >= 0) {
+            A[index--] = A[i--];
+        }
+        while (j >= 0) {
+            A[index--] = B[j--];
+        }
+    }
+
+
+
+
+
 
      /*
     * JiuZhang Chapter 8 begins !
