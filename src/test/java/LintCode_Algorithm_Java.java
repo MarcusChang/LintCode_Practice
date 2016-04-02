@@ -1646,6 +1646,27 @@ public class LintCode_Algorithm_Java {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/identical-binary-tree/
+     * @param a, b, the root of binary trees.
+     * @return true if they are identical, or false.
+     */
+    public boolean isIdentical(TreeNode a, TreeNode b) {
+        // Write your code here
+        if (a == null && b == null)
+            return true;
+        if (a != null && b != null) {
+            return a.val == b.val && isIdentical(a.left, b.left)
+                    && isIdentical(a.right, b.right);
+        }
+        return false;
+    }
+
+
+
+
+
+
      /*
     * JiuZhang Chapter 4 begins !
     * */
