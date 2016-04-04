@@ -3092,6 +3092,55 @@ public class LintCode_Algorithm_Java {
 
 
 
+
+    /**
+     * http://www.jiuzhang.com/solutions/convert-binary-search-tree-to-doubly-linked-list/
+     * @param root: The root of tree
+     * @return: the head of doubly list node
+     */
+    public DoublyListNode bstToDoublyList(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        ResultTypeDoublyListNode result = helperDoublyListNode(root);
+        return result.first;
+    }
+
+    public ResultTypeDoublyListNode helperDoublyListNode(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        ResultTypeDoublyListNode left = helperDoublyListNode(root.left);
+        ResultTypeDoublyListNode right = helperDoublyListNode(root.right);
+        DoublyListNode node = new DoublyListNode(root.val);
+
+        ResultTypeDoublyListNode result = new ResultTypeDoublyListNode(null, null);
+
+        if (left == null) {
+            result.first = node;
+        } else {
+            result.first = left.first;
+            left.last.next = node;
+            node.prev = left.last;
+        }
+
+        if (right == null) {
+            result.last = node;
+        } else {
+            result.last = right.last;
+            right.first.prev = node;
+            node.next = right.first;
+        }
+
+        return result;
+    }
+
+
+
+
+
      /*
     * JiuZhang Chapter 7 begins !
     * */
