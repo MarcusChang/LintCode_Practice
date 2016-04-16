@@ -37,4 +37,29 @@ public class LintCode_FLAG_Algorithm {
 
 
 
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/compare-strings/
+     * @param A : A string includes Upper Case letters
+     * @param B : A string includes Upper Case letter
+     * @return :  if string A contains all of the characters in B return true else return false
+     */
+    public boolean compareStrings(String A, String B) {
+        int[] counts = new int[26];
+        for (int i = 0; i < 26; i++) {
+            counts[i] = 0;
+        }
+        for (int i = 0; i < A.length(); i++) {
+            counts[A.charAt(i) - 'A'] ++;
+        }
+        for (int i = 0; i < B.length(); i++) {
+            counts[B.charAt(i) - 'A'] --;
+            if (counts[B.charAt(i) - 'A'] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
