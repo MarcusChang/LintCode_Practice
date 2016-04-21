@@ -215,5 +215,31 @@ public class LintCode_FLAG_Algorithm {
 
 
 
+    /**
+     * http://www.lintcode.com/zh-cn/problem/remove-duplicates-from-sorted-array/
+     * @param nums: a array of integers
+     * @return : return an integer
+     */
+    public int removeDuplicates(int[] nums) {
+        // write your code here
+
+        int len = nums.length;
+        int size = 0;
+
+        if (nums == null || len == 0) {
+            return 0;
+        }
+
+        for (int i = 0; i < len; i++) {
+            if (nums[i] != nums[size]) {
+                nums[++size] = nums[i];
+            }
+        }
+        return size + 1;
+    }
+
+
+
+
 
 }
