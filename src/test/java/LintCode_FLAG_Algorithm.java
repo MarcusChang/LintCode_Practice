@@ -241,48 +241,6 @@ public class LintCode_FLAG_Algorithm {
 
 
 
-    /**
-     * http://www.lintcode.com/zh-cn/problem/product-of-array-exclude-itself/
-     * @param A: Given an integers array A
-     * @return: A Long array B and B[i]= A[0] * ... * A[i-1] * A[i+1] * ... * A[n-1]
-     */
-    public ArrayList<Long> productExcludeItself(ArrayList<Integer> A) {
-        // write your code
-        int len = A.size();
-        ArrayList<Long> B = new  ArrayList<Long>();
-        if (len==1)
-            return B;
-
-        long[] f = new long[len];
-
-        long tmp = 1;
-        long now = 1;
-        f[len-1] = A.get(len-1);
-        //System.out.println(f[len-1]);
-        int i ;
-        for ( i = len-2; i >= 0; --i)
-        {
-            f[i] = A.get(i);
-            //System.out.println(f[i+1]);
-            f[i] = f[i] * f[i+1];
-            //System.out.println(f[i]);
-        }
-
-        for ( i = 0; i < len; ++i) {
-
-            now = tmp;
-            if(i+1<len)
-                B.add( now * f[i+1] ); else
-                B.add( now );
-            now = A.get(i);
-            tmp = tmp * now;
-
-        }
-        return B;
-    }
-
-
-
 
 
     /**
@@ -345,6 +303,50 @@ public class LintCode_FLAG_Algorithm {
 
 
 
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/product-of-array-exclude-itself/
+     * @param A: Given an integers array A
+     * @return: A Long array B and B[i]= A[0] * ... * A[i-1] * A[i+1] * ... * A[n-1]
+     */
+    public ArrayList<Long> productExcludeItself(ArrayList<Integer> A) {
+        // write your code
+        int len = A.size();
+        ArrayList<Long> B = new  ArrayList<Long>();
+        if (len == 1){
+            B.add(new Long(1L));
+            return B;
+        }
+
+        long[] f = new long[len];
+
+        long tmp = 1;
+        long now = 1;
+        f[len-1] = A.get(len-1);
+        //System.out.println(f[len-1]);
+        int i ;
+        for ( i = len-2; i >= 0; --i)
+        {
+            f[i] = A.get(i);
+            //System.out.println(f[i+1]);
+            f[i] = f[i] * f[i+1];
+            //System.out.println(f[i]);
+        }
+
+        for ( i = 0; i < len; ++i) {
+
+            now = tmp;
+            if(i+1<len)
+                B.add( now * f[i+1] ); else
+                B.add( now );
+            now = A.get(i);
+            tmp = tmp * now;
+
+        }
+        return B;
+    }
 
 
 
