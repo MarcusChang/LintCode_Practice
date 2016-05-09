@@ -29,4 +29,25 @@ public class LintCode_CodingInterviews {
     }
 
 
+
+
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/singleton/
+     * @return: The same instance of this class every time
+     */
+    public static LintCode_CodingInterviews instance = null;
+    public static LintCode_CodingInterviews getInstance() {
+        // write your code here
+        if (instance == null) {
+            instance = new LintCode_CodingInterviews();
+        }
+        return instance;
+    }
+
+
+
+
+
 }
