@@ -50,4 +50,22 @@ public class LintCode_CodingInterviews {
 
 
 
+
+
+    /**
+     * http://www.lintcode.com/zh-cn/problem/count-1-in-binary/
+     * @param num: an integer
+     * @return: an integer, the number of ones in num
+     */
+    public int countOnes(int num) {
+        // write your code here
+        int count = 0;
+        while (num != 0) {
+            num = num & (num - 1);
+            count++;
+        }
+        return count;
+    }
+
+
 }
